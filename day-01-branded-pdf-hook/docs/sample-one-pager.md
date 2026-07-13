@@ -9,7 +9,7 @@ secure, and scalable" is where most momentum dies.
 
 ## The Solution
 
-Vibe2Cloud automatically migrates applications
+Vibe2Cloud automatically migrates applications from vibe coding platforms to dedicated cloud service providers. 
 
 ## Why Now
 
