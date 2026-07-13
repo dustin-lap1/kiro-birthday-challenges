@@ -1,0 +1,18 @@
+{
+  "enabled": true,
+  "name": "Branded PDF in Sync (on update)",
+  "description": "When a Markdown file in day-01-branded-pdf-hook/docs is edited and saved, automatically regenerate its branded PDF so the letterhead version never goes stale. The script only rebuilds when the Markdown is newer than the PDF, so it is cheap; because the hook watches *.md and writes *.pdf, it can never re-trigger itself.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "day-01-branded-pdf-hook/docs/**/*.md"
+    ]
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "python day-01-branded-pdf-hook/scripts/md-to-branded-pdf.py day-01-branded-pdf-hook/docs"
+  },
+  "workspaceFolderName": "kiro-birthday-challenges",
+  "shortName": "brand-md-on-update"
+}

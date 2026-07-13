@@ -3,47 +3,47 @@
 **Challenge:** build a Kiro hook that automates something meaningful and produces
 visible output in response to a change.
 
-**This build:** *Branded PDF on Export.* Every team ships documents — pitches,
+**This build:** *Branded PDF in Sync.* Every team ships documents — pitches,
 one-pagers, briefs — and every time, someone has to remember to drop them onto
 company letterhead. That manual step gets skipped, and off-brand PDFs go out the
 door. This hook removes the step entirely.
 
-When you export a document to PDF into the watched folder, a Kiro hook fires and
-automatically produces a fully branded twin with the company logo, a
-`CONFIDENTIAL` marker, a contact footer, and a clickable website link — no manual
-step, no forgetting.
+Any time you create or update a Markdown file in the watched `docs/` folder, a
+Kiro hook fires and automatically (re)generates a matching **branded PDF** — same
+name, letterhead applied — so the polished document is always in sync with the
+source. No commands, no forgetting.
 
 ## How it works
 
 ```
-  You export a doc to PDF                 Kiro hook fires                 Branded output
-  ─────────────────────      ──▶      ─────────────────────      ──▶     ─────────────────────
-  docs/sample-one-pager.pdf          fileCreated / fileEdited            docs/sample-one-pager-branded.pdf
-  (plain, no branding)               runs apply-letterhead.py            (logo + letterhead + footer)
+  You create/edit a .md and save        Kiro hook fires                  Branded output (in sync)
+  ─────────────────────────      ──▶      ─────────────────────      ──▶     ─────────────────────
+  docs/sample-one-pager.md              fileCreated / fileEdited            docs/sample-one-pager.pdf
+  (the source of truth)                 runs md-to-branded-pdf.py           (logo + letterhead + footer)
 ```
 
-1. A PDF lands in `day-01-branded-pdf-hook/docs/` (from any export tool).
-2. The hook `Branded PDF on Export` (`fileCreated`) — or `Branded PDF on Update`
-   (`fileEdited`) for re-exports — triggers.
-3. It runs `apply-letterhead.py` against the `docs/` folder.
-4. A branded twin `*-branded.pdf` is created or refreshed.
+1. You create or edit a `.md` file in `day-01-branded-pdf-hook/docs/` and save.
+2. The hook `Branded PDF in Sync (on create)` (`fileCreated`) or
+   `Branded PDF in Sync (on update)` (`fileEdited`) triggers.
+3. It runs `md-to-branded-pdf.py` against the `docs/` folder.
+4. The matching branded PDF (`<name>.pdf`) is created or refreshed.
 
 ### Why it does not loop
 
-The branding script skips any file whose name already contains `-branded`, and it
-only rebuilds a twin when the source PDF is newer than the existing branded copy.
-So when the hook writes `sample-one-pager-branded.pdf`, re-triggering is a no-op.
+The hooks watch `*.md` and the script writes `*.pdf`, so generating the PDF can
+never re-trigger the hook. On top of that, the script only rebuilds a PDF when its
+Markdown source is newer, so re-runs are cheap no-ops.
 
 ## Files
 
 | Path | Purpose |
 |------|---------|
-| `../.kiro/hooks/brand-pdf-on-export.kiro.hook` | Hook: on PDF **created** in `docs/`, brand it |
-| `../.kiro/hooks/brand-pdf-on-update.kiro.hook` | Hook: on PDF **edited** in `docs/`, re-brand it |
-| `scripts/apply-letterhead.py` | Branding engine (logo + header/footer overlay) |
-| `scripts/export-to-pdf.py` | Stand-in for "export a doc to PDF" (Markdown → plain PDF) |
+| `../.kiro/hooks/brand-md-on-create.kiro.hook` | Hook: on `.md` **created** in `docs/`, build its branded PDF |
+| `../.kiro/hooks/brand-md-on-update.kiro.hook` | Hook: on `.md` **edited** in `docs/`, refresh its branded PDF |
+| `scripts/md-to-branded-pdf.py` | One-step engine: Markdown → branded PDF (letterhead overlay) |
 | `assets/logo.png` | Company logo used on the letterhead |
 | `docs/sample-one-pager.md` | Demo source document |
+| `docs/sample-one-pager.pdf` | Branded PDF, generated and kept in sync by the hook |
 
 ## Try it
 
@@ -52,23 +52,19 @@ From the repo root:
 ```powershell
 # 1. Install dependencies (once)
 pip install -r day-01-branded-pdf-hook/requirements.txt
-
-# 2. "Export" the sample doc to a plain PDF — this drops a PDF into docs/,
-#    which is what the hook watches for.
-python day-01-branded-pdf-hook/scripts/export-to-pdf.py day-01-branded-pdf-hook/docs/sample-one-pager.md
 ```
 
-With the hook enabled in Kiro, step 2 triggers it automatically and
-`docs/sample-one-pager-branded.pdf` appears. To run the branding step by hand
-(what the hook runs under the hood):
+With the hooks enabled in Kiro, just **edit `docs/sample-one-pager.md` and save**
+(or create a new `.md` in that folder) — the branded PDF appears/updates
+automatically. To run the sync by hand (what the hook runs under the hood):
 
 ```powershell
-python day-01-branded-pdf-hook/scripts/apply-letterhead.py day-01-branded-pdf-hook/docs
+python day-01-branded-pdf-hook/scripts/md-to-branded-pdf.py day-01-branded-pdf-hook/docs
 ```
 
 ## Make it your own
 
-Open `scripts/apply-letterhead.py` and edit the branding config block near the
+Open `scripts/md-to-branded-pdf.py` and edit the branding config block near the
 top (`COMPANY_MARKER`, `CONTACT_PREFIX`, `CONTACT_LINK_TEXT`, `CONTACT_LINK_URL`)
 and drop your own `assets/logo.png`.
 
@@ -80,7 +76,7 @@ and drop your own `assets/logo.png`.
 
 **Project name:**
 ```
-Branded PDF on Export
+Branded PDF in Sync
 ```
 
 **Public GitHub repo link:**
@@ -95,23 +91,23 @@ https://github.com/dustin-lap1/kiro-birthday-challenges
 
 **Short description (2–3 sentences):**
 ```
-Branded PDF on Export is a Kiro hook that automatically drops company letterhead onto any PDF the moment it's exported into a watched folder. The instant a plain PDF appears, the hook generates a branded twin with the company logo, a CONFIDENTIAL marker, a contact footer, and a clickable website link — so off-brand documents never go out the door. The automation is idempotent and loop-safe, so it quietly keeps every exported document on-brand with zero manual steps.
+Branded PDF in Sync is a Kiro hook that keeps a company-branded PDF perfectly in sync with its Markdown source. The moment you create or update a doc in the watched folder and save, the hook regenerates a matching PDF with the company logo, a CONFIDENTIAL marker, a contact footer, and a clickable website link — so off-brand documents never go out the door. It is loop-safe by design: the hook watches Markdown and writes PDF, so it never re-triggers itself.
 ```
 
 **How Kiro was used (150–300 words):**
 ```
-I built this entirely inside Kiro. I started from an existing manual "brand a PDF" script I'd used on another project and asked Kiro to repurpose it into a reusable, automatic workflow for a fresh public repo. Kiro created the GitHub repository, cloned it into my workspace, and scaffolded a clean per-challenge folder structure.
+I built this entirely inside Kiro. I started from an existing manual "brand a PDF" script I'd used on another project and asked Kiro to repurpose it into an automatic, reusable workflow in a fresh public repo. Kiro created the GitHub repository, cloned it into my workspace, and scaffolded a clean per-challenge folder structure.
 
-The core of the build is Kiro's agent hooks. Kiro authored two file-triggered hooks in the .kiro folder: one on fileCreated and one on fileEdited, both watching the docs folder for PDFs. When an export lands, the hook runs a Python branding engine that overlays a navy letterhead — logo, CONFIDENTIAL marker, contact footer, and a clickable link — producing a "-branded" twin of the file.
+The heart of the build is Kiro's agent hooks. My goal was simple: whenever I create or update a Markdown doc, a branded PDF should stay in sync automatically — no commands. Kiro authored two file-triggered hooks in the .kiro folder, one on fileCreated and one on fileEdited, both watching the docs folder for Markdown. When a doc is saved, the hook runs a single Python engine that converts the Markdown to PDF and overlays a navy letterhead: logo, CONFIDENTIAL marker, contact footer, and a clickable link.
 
-A real risk with file-watching hooks is an infinite loop: the hook writes a PDF, which triggers the hook again. Kiro solved this by making the script skip any file already named "-branded" and only rebuild when the source is newer than its branded copy, so the output is idempotent and loop-safe.
+We iterated on the design together. My first version watched PDFs, which risked an infinite loop. Kiro reframed it so the source of truth is the Markdown and the PDF is a generated artifact — the hook watches .md and writes .pdf, so it can never re-trigger itself, and it only rebuilds when the source is newer.
 
-Kiro also wrote a small helper that simulates exporting a document to PDF, a sample one-pager, a requirements file, and this documentation. Throughout, Kiro ran the full pipeline in the terminal to verify it end to end — exporting a plain PDF, branding it, and confirming re-runs were correctly skipped — before committing and pushing. What would have been an afternoon of glue code became a working, documented, automated hook in one session.
+Kiro also wrote the sample doc, requirements file, and documentation, and ran the full pipeline in the terminal to verify it end to end before committing and pushing. What would have been an afternoon of glue code became a working, documented, loop-safe hook in one focused session.
 ```
 
 **Social post (X or LinkedIn):**
 ```
-Day 1 of Kiro Birthday Week: I built a Kiro hook that auto-brands my PDFs. The moment I export a doc to PDF, the hook drops my company letterhead — logo, footer, the works — onto a branded copy. Idempotent and loop-safe, zero manual steps.
+Day 1 of Kiro Birthday Week: I built a Kiro hook that keeps my docs on-brand automatically. Edit a Markdown file, hit save, and a company-letterhead PDF regenerates in sync — logo, footer, the works. Loop-safe, zero manual steps.
 
 Repo: https://github.com/dustin-lap1/kiro-birthday-challenges
 
@@ -125,37 +121,37 @@ Repo: https://github.com/dustin-lap1/kiro-birthday-challenges
 Read the lines aloud; the cues in brackets are what to show on screen.
 
 > **[0:00 — On camera or Kiro open, Agent Hooks panel visible]**
-> "Every team knows this pain: you export a document to PDF, and you forget to
-> put it on company letterhead. So off-brand docs go out the door. For Day 1 of
-> Kiro Birthday Week, I built a Kiro hook that fixes that automatically."
+> "Every team knows this pain: you write a document, export it, and forget to put
+> it on company letterhead — so off-brand docs go out the door. For Day 1 of Kiro
+> Birthday Week, I built a Kiro hook that keeps my docs on-brand automatically."
 >
 > **[0:15 — Show the two hooks in the Agent Hooks panel]**
-> "I've got two hooks here: 'Branded PDF on Export' and 'Branded PDF on Update.'
-> They watch my docs folder for any PDF — one fires when a PDF is created, the
-> other when it's re-exported."
+> "I've got two hooks watching my docs folder: one fires when I create a Markdown
+> file, the other when I edit one. My Markdown is the source of truth — the
+> branded PDF just stays in sync."
 >
-> **[0:30 — Show sample-one-pager.md, then run the export command in the terminal]**
-> "Here's a plain one-pager. I'll export it to PDF from the terminal — this
-> stands in for any export tool. Watch the docs folder."
+> **[0:30 — Open sample-one-pager.md side by side with the branded PDF]**
+> "Here's a one-pager in Markdown, and its branded PDF next to it. Watch what
+> happens when I change the doc."
 >
-> _On screen, run:_
-> ```powershell
-> python day-01-branded-pdf-hook/scripts/export-to-pdf.py day-01-branded-pdf-hook/docs/sample-one-pager.md
-> ```
+> **[0:45 — Edit a line in the Markdown and hit Save]**
+> "I'll tweak a headline and save."
 >
-> **[0:45 — The hook fires; a -branded.pdf appears]**
-> "The moment the PDF lands, the hook runs. And there it is — a branded twin
-> shows up automatically. No button, no reminder."
+> **[0:55 — The hook fires; the PDF regenerates]**
+> "The moment I save, the hook runs and the PDF regenerates itself — no button,
+> no command."
 >
-> **[1:00 — Open sample-one-pager-branded.pdf]**
-> "Same document, now on letterhead: my logo up top, a CONFIDENTIAL marker, and
-> a footer with contact info and a clickable website link."
+> **[1:05 — Show the refreshed branded PDF]**
+> "Same document, on letterhead: my logo up top, a CONFIDENTIAL marker, and a
+> footer with contact info and a clickable website link."
 >
-> **[1:15 — Point at the script or say it]**
-> "The neat part is it's loop-safe. The hook writes a PDF, which could trigger
-> the hook again forever — but the script skips anything already branded and only
-> rebuilds when the source is newer. So it just quietly keeps every export
-> on-brand."
+> **[1:20 — Optionally create a brand-new .md in docs/ and save]**
+> "And if I create a brand-new doc, its branded PDF appears automatically too."
 >
-> **[1:30 — Close]**
+> **[1:35 — Say it]**
+> "The clever part is it's loop-safe: the hook watches Markdown and writes PDF, so
+> it can never trigger itself, and it only rebuilds when the source actually
+> changed."
+>
+> **[1:50 — Close]**
 > "One hook, something genuinely useful, built with Kiro. That's Day 1."

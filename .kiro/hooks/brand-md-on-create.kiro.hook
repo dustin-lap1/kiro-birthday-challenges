@@ -1,0 +1,18 @@
+{
+  "enabled": true,
+  "name": "Branded PDF in Sync (on create)",
+  "description": "When a Markdown file is created in day-01-branded-pdf-hook/docs, automatically generate a matching branded PDF (<name>.pdf) with the Lap 1 Labs letterhead: logo, CONFIDENTIAL marker, contact footer, and clickable website link. Keeps the branded PDF in sync with the source doc with zero manual steps.",
+  "version": "1",
+  "when": {
+    "type": "fileCreated",
+    "patterns": [
+      "day-01-branded-pdf-hook/docs/**/*.md"
+    ]
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "python day-01-branded-pdf-hook/scripts/md-to-branded-pdf.py day-01-branded-pdf-hook/docs"
+  },
+  "workspaceFolderName": "kiro-birthday-challenges",
+  "shortName": "brand-md-on-create"
+}
