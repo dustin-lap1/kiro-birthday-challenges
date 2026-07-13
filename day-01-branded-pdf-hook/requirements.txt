@@ -1,0 +1,8 @@
+# Branding engine (apply-letterhead.py)
+pillow
+pypdf
+
+# Sample "export to PDF" helper (export-to-pdf.py)
+markdown
+xhtml2pdf
+reportlab

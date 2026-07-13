@@ -1,0 +1,18 @@
+{
+  "enabled": true,
+  "name": "Branded PDF on Update",
+  "description": "Companion to 'Branded PDF on Export'. When an existing exported PDF is overwritten (re-exported), regenerate its branded twin so the branded version never goes stale. The branding script only rebuilds when the source is newer, so this is cheap and loop-safe.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "day-01-branded-pdf-hook/docs/**/*.pdf"
+    ]
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "python day-01-branded-pdf-hook/scripts/apply-letterhead.py day-01-branded-pdf-hook/docs"
+  },
+  "workspaceFolderName": "kiro-birthday-challenges",
+  "shortName": "brand-pdf-on-update"
+}

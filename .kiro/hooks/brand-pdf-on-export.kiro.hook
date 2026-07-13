@@ -1,0 +1,18 @@
+{
+  "enabled": true,
+  "name": "Branded PDF on Export",
+  "description": "When a PDF is exported into day-01-branded-pdf-hook/docs, automatically generate a branded twin (<name>-branded.pdf) with the Lap 1 Labs letterhead: logo, CONFIDENTIAL marker, contact footer, and clickable website link. Already-branded files are skipped, so the hook never re-triggers itself.",
+  "version": "1",
+  "when": {
+    "type": "fileCreated",
+    "patterns": [
+      "day-01-branded-pdf-hook/docs/**/*.pdf"
+    ]
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "python day-01-branded-pdf-hook/scripts/apply-letterhead.py day-01-branded-pdf-hook/docs"
+  },
+  "workspaceFolderName": "kiro-birthday-challenges",
+  "shortName": "brand-pdf-on-export"
+}
