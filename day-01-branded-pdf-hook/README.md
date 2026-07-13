@@ -134,9 +134,14 @@ Read the lines aloud; the cues in brackets are what to show on screen.
 > They watch my docs folder for any PDF — one fires when a PDF is created, the
 > other when it's re-exported."
 >
-> **[0:30 — Open sample-one-pager.md, then run the export command]**
-> "Here's a plain one-pager. I'll export it to PDF, just like any export tool
-> would. Watch the docs folder."
+> **[0:30 — Show sample-one-pager.md, then run the export command in the terminal]**
+> "Here's a plain one-pager. I'll export it to PDF from the terminal — this
+> stands in for any export tool. Watch the docs folder."
+>
+> _On screen, run:_
+> ```powershell
+> python day-01-branded-pdf-hook/scripts/export-to-pdf.py day-01-branded-pdf-hook/docs/sample-one-pager.md
+> ```
 >
 > **[0:45 — The hook fires; a -branded.pdf appears]**
 > "The moment the PDF lands, the hook runs. And there it is — a branded twin
