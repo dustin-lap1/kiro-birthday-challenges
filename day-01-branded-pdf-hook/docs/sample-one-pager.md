@@ -9,9 +9,7 @@ secure, and scalable" is where most momentum dies.
 
 ## The Solution
 
-Vibe2Cloud takes a working prototype and stands up a serverless AWS backend
-around it — auth, database, storage, and APIs — in minutes, not weeks. You keep
-building; we handle the cloud.
+Vibe2Cloud automatically migrates applications
 
 ## Why Now
 
