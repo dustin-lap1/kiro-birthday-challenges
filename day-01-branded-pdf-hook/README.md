@@ -86,7 +86,7 @@ https://github.com/dustin-lap1/kiro-birthday-challenges
 
 **Demo video link:**
 ```
-<paste your video link here>
+https://www.loom.com/share/74cdb04516164d4396bf5aec61ada56b
 ```
 
 **Short description (2–3 sentences):**

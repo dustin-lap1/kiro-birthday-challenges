@@ -9,5 +9,6 @@ capability — hooks, specs, and steering.
 | Day | Challenge | Folder |
 |-----|-----------|--------|
 | 1 | Build a hook that automates something meaningful | [`day-01-branded-pdf-hook/`](day-01-branded-pdf-hook/) |
+| 2 | Build a multiplayer workspace for agents and humans | [`day-02-vibe2cloud/`](day-02-vibe2cloud/) |
 
 More challenges will be added throughout the week.
