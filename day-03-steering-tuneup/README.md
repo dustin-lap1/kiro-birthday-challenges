@@ -2,13 +2,13 @@
 
 **Challenge:** don't build something new, fix something broken. Point Kiro at a project with broken behavior, use **Autopilot** to investigate and repair it, and show it going from red to green. The bar is meaningful investigation and a fix that preserves existing behavior, not a trivial typo change.
 
-**This build:** *Steering Tune-Up.* The "broken project" here isn't a failing unit test, it's my entire **Kiro configuration** across a multi-root workspace. My steering had quietly rotted into a state that was actively degrading every agent session: 20+ steering documents, almost all set to load on every session, several out of date, and many bleeding across unrelated projects. Kiro audited the whole thing in Autopilot, diagnosed the misconfiguration, and repaired it, taking my sessions from "red" (bloated, inaccurate, wasteful context) to "green" (focused, accurate, cost-efficient), without changing how any individual project builds or deploys.
+**This build:** *Steering Tune-Up.* The "broken project" here isn't a failing unit test, it's my entire **Kiro configuration** across a multi-root workspace. My steering had quietly moved into a state that was actively degrading every agent session: 20+ steering documents, almost all set to load on every session, several out of date due to new features, and many bleeding across unrelated projects. Kiro audited the whole thing in Autopilot, diagnosed the current configuration and suggested improvements by applying inclusion flags for each document, and repaired it, taking my sessions from "red" (bloated, inaccurate, wasteful context) to "green" (focused, accurate, cost-efficient), without changing how any individual project builds or deploys. 
 
 ![Kiro auditing and restructuring steering documents across a multi-root workspace, assigning inclusion flags](day3-steering-docs.png)
 
 ## Background: one IDE window, eleven projects
 
-I run a [multi-root workspace](https://kiro.dev/docs/editor/multi-root-workspaces/) in Kiro, which lets me work across multiple projects and applications from the same IDE window. For a developer like me, that is a real productivity unlock: I jump between Repo A, Repo B, Repo C, and the rest without ever leaving the window.
+I run a [multi-root workspace](https://kiro.dev/docs/editor/multi-root-workspaces/) in Kiro, which lets me work across multiple projects and applications from the same IDE window. For a developer like me, that is a real productivity unlock: I jump between Repo A, Repo B, Repo C, and the rest without ever having to leave the current working environment. 
 
 My workspace has **exactly 11 projects**. Most are small "tinker" projects, but a few are business-critical, customer-facing applications. Naturally, each one has a slightly different tech stack, structure, and product description, along with other context unique to that project. At the same time, a few things need to be **globally consistent** across all of them, like my deployment procedure for Lambda functions and my Terraform safety guidelines.
 
