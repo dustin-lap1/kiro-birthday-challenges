@@ -74,8 +74,7 @@ https://github.com/dustin-lap1/kiro-birthday-challenges
 
 **Demo video link:**
 ```
-<add your before/after demo video link here>
-```
+https://www.loom.com/share/042ea62a4b6446f986b04799dcbbafe9```
 
 **Short description (2-3 sentences):**
 ```
