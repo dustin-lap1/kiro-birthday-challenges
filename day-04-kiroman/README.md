@@ -4,6 +4,8 @@
 
 **This build:** *Kiroman.* A cute, Kiro-branded twist on Pac-Man: you enter an alias, then run from **Kiro** through a maze, racing to reach as many levels as you can. A **global top-three leaderboard** (highest level reached, across all players) sits up top and refreshes on every page load, there's a friendly "Welcome to Kiroman!" banner, and you can pause any time with the spacebar on web or a tap on mobile. It's playable on both web and mobile, and it's deployed to AWS on a fully serverless stack — the same S3 + CloudFront + API Gateway + Lambda + DynamoDB pattern every Lap 1 Labs project uses.
 
+![Kiroman gameplay — the Welcome to Kiroman banner, global leaderboard, and maze](kiroman-screenshot.png)
+
 ## The one sentence
 
 This is the entire starting point — one declarative sentence, one main idea. It lives verbatim in [`SPEC-INPUT.md`](SPEC-INPUT.md) and is what was fed into Kiro's spec mode:
