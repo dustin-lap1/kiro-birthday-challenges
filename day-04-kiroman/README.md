@@ -45,7 +45,11 @@ The challenge is one-sentence-in, working-app-out — but a working app needs a 
 
 ## The prompt, in full (what my idea actually looked like)
 
-The challenge wants one sentence, but here's the fuller idea I had in my head before I distilled it — captured so you can see how a messy, multi-part vision became a single starting sentence:
+The challenge wants one sentence, but here's the fuller idea I had in my head before I distilled it — captured so you can see how a messy, multi-part vision became a single starting sentence. Here's the actual prompt I typed to Kiro:
+
+![My actual initial prompt to Kiro for Kiroman](day%204%20-%20prompt.png)
+
+Transcribed:
 
 > Create a game called "Kiroman" that's just like Pac-Man, only the player is running from Kiro (using the Kiro logo/image). Copy the bootstrap I use for minting new projects so it has all the same infrastructure and deploy scripts; create a new public GitHub repo called "kiroman" in my account and clone it to `C:\Dev\kiroman`; scaffold Terraform and deploy to AWS, reusing the AccountRef account instead of creating a new one to save steps. Once baseline infra is up, build the app and deploy it serverless like my other apps. Use Kiro branding, colors, and logo — make it really cute, fun, and interactive, and optimized for both mobile and web so it plays great everywhere. Put a clear "Welcome to Kiroman!" message at the top and a global leaderboard showing the top 3 levels reached across all users, refreshed on page load so it's always fresh. To start, a user enters their alias; they can pause with the spacebar on web (or a tap on mobile).
 
@@ -57,6 +61,7 @@ That whole paragraph is the vision. The **one sentence** in `SPEC-INPUT.md` is t
 |------|---------|
 | `README.md` | This writeup (challenge, the one sentence, how Kiro built it, submission) |
 | `SPEC-INPUT.md` | The single declarative sentence fed into Kiro spec mode |
+| `day 4 - prompt.png` | Screenshot of my actual initial prompt to Kiro |
 
 > The Kiro-generated spec itself (`requirements.md`, `design.md`, `tasks.md`) lives in the **Kiroman app repo** at `.kiro/specs/kiroman/` (`github.com/dustin-lap1/kiroman`), committed unmodified in the first commit as the challenge requires.
 
