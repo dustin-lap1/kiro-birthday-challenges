@@ -11,5 +11,6 @@ capability — hooks, specs, and steering.
 | 1 | Build a hook that automates something meaningful | [`day-01-branded-pdf-hook/`](day-01-branded-pdf-hook/) |
 | 2 | Build a multiplayer workspace for agents and humans | [`day-02-vibe2cloud/`](day-02-vibe2cloud/) |
 | 3 | Build a functional fix for a broken project | [`day-03-steering-tuneup/`](day-03-steering-tuneup/) |
+| 4 | Build one app with one sentence | [`day-04-kiroman/`](day-04-kiroman/) |
 
 More challenges will be added throughout the week.
