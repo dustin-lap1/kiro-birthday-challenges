@@ -178,7 +178,7 @@ https://github.com/dustin-lap1/kiro-birthday-challenges/tree/main/day-05-image-g
 
 **Demo video link:**
 ```
-<add your 30-60s demo video link here>
+https://www.loom.com/share/6c67853a97454081a78195718ea324c2
 ```
 
 **Short description (2-3 sentences):**
