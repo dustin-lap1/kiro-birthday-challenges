@@ -1,0 +1,18 @@
+{
+  "name": "day-05-image-gen-mcp",
+  "version": "1.0.0",
+  "description": "Local stdio MCP server that connects Kiro to OpenAI's Images API for native-feeling image generation.",
+  "type": "module",
+  "main": "src/index.mjs",
+  "scripts": {
+    "start": "node src/index.mjs",
+    "test": "node --test"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "fast-check": "^3.15.0"
+  }
+}

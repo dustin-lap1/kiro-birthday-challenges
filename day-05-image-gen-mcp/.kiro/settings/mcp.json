@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "image-gen": {
+      "command": "node",
+      "args": ["src/index.mjs"],
+      "cwd": "day-05-image-gen-mcp",
+      "env": {
+        "OPENAI_API_KEY": "sk-your-openai-api-key-here",
+        "ENABLE_EDIT_TOOL": "false",
+        "ENABLE_LIST_TOOL": "false"
+      },
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}

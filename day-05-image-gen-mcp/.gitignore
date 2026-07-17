@@ -1,0 +1,14 @@
+# Secrets — never commit the real environment file.
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+
+# Generated images are committed for this challenge (they're the deliverable).
+# If you'd rather not track throwaway generations, re-add: public/images/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
